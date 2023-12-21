@@ -32,8 +32,23 @@ describe("Central de atendimento ao Cliente TAT", () => {
     cy.get("span.error").should("be.visible");
   });
 
+  //exercicio 03
   it("verifica que o campo telefone fica em branco ao serem digitados caracteres inválidos", () => {
     cy.get("#phone").type("abcdefgh");
     cy.get("#phone").should("have.text", "");
+  });
+
+  //exercicio 04
+  it("exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário", () => {
+    cy.get("#firstName").type("Dutch");
+    cy.get("#lastName").type("Salamandra");
+    cy.get("#email").type("email@mail");
+    cy.get("#open-text-area").type(
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis et aliquid vero pariatur odit quas! Cum, sit vero odit maiores corporis veniam necessitatibus temporibus ab quis incidunt assumenda laboriosam dolorem?",
+      { delay: 0 }
+    );
+    cy.get("#phone-checkbox").click();
+    cy.get(`button.button[type = "submit"]`).click();
+    cy.get("span.error").should("be.visible");
   });
 });
