@@ -35,7 +35,7 @@ describe("Central de atendimento ao Cliente TAT", () => {
   //exercicio 03
   it("verifica que o campo telefone fica em branco ao serem digitados caracteres inválidos", () => {
     cy.get("#phone").type("abcdefgh");
-    cy.get("#phone").should("have.text", "");
+    cy.get("#phone").should("have.value", "");
   });
 
   //exercicio 04
@@ -50,5 +50,23 @@ describe("Central de atendimento ao Cliente TAT", () => {
     cy.get("#phone-checkbox").click();
     cy.get(`button.button[type = "submit"]`).click();
     cy.get("span.error").should("be.visible");
+  });
+
+  //exercicio 05
+  it("preenche e limpa os campos nome, sobrenome, email e telefone", () => {
+    cy.get("#firstName").type("Alguem");
+    cy.get("#firstName").should("have.value", "Alguem");
+    cy.get("#firstName").clear();
+    cy.get("#firstName").should("have.value", "");
+
+    cy.get("#lastName").type("Someone");
+    cy.get("#lastName").should("have.value", "Someone");
+    cy.get("#lastName").clear();
+    cy.get("#lastName").should("have.value", "");
+
+    cy.get("#email").type("email@email.com");
+    cy.get("#email").should("have.value", "email@email.com");
+    cy.get("#email").clear();
+    cy.get("#email").should("have.value", "");
   });
 });
