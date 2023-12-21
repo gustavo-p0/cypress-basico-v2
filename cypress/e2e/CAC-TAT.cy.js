@@ -2,6 +2,7 @@ describe("Central de atendimento ao Cliente TAT", () => {
   beforeEach(() => {
     cy.visit("src/index.html");
   });
+
   // exercício 00
   it("verifica o titulo da aplicação", () => {
     cy.title().should("eq", "Central de Atendimento ao Cliente TAT");
@@ -15,7 +16,7 @@ describe("Central de atendimento ao Cliente TAT", () => {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis et aliquid vero pariatur odit quas! Cum, sit vero odit maiores corporis veniam necessitatibus temporibus ab quis incidunt assumenda laboriosam dolorem?",
       { delay: 0 }
     );
-    cy.get(`button.button[type = "submit"]`).click();
+    cy.contains("button", "Enviar").click();
     cy.get(`span.success`).should("be.visible");
   });
 
@@ -28,7 +29,7 @@ describe("Central de atendimento ao Cliente TAT", () => {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis et aliquid vero pariatur odit quas! Cum, sit vero odit maiores corporis veniam necessitatibus temporibus ab quis incidunt assumenda laboriosam dolorem?",
       { delay: 0 }
     );
-    cy.get(`button.button[type = "submit"]`).click();
+    cy.contains("button", "Enviar").click();
     cy.get("span.error").should("be.visible");
   });
 
@@ -48,7 +49,7 @@ describe("Central de atendimento ao Cliente TAT", () => {
       { delay: 0 }
     );
     cy.get("#phone-checkbox").click();
-    cy.get(`button.button[type = "submit"]`).click();
+    cy.contains("button", "Enviar").click();
     cy.get("span.error").should("be.visible");
   });
 
@@ -68,5 +69,15 @@ describe("Central de atendimento ao Cliente TAT", () => {
     cy.get("#email").should("have.value", "email@email.com");
     cy.get("#email").clear();
     cy.get("#email").should("have.value", "");
+  });
+
+  // exercicio 06
+  it("exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios", () => {
+    cy.get(`button.button[type="submit"]`).click();
+    cy.get(`span.error`).should("be.visible");
+  });
+
+  it("envia o formulário com sucesso usando um comando customizado", () => {
+    cy.fillMandatoryFieldsAndSubmit();
   });
 });
