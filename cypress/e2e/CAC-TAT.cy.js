@@ -31,4 +31,9 @@ describe("Central de atendimento ao Cliente TAT", () => {
     cy.get(`button.button[type = "submit"]`).click();
     cy.get("span.error").should("be.visible");
   });
+
+  it("verifica que o campo telefone fica em branco ao serem digitados caracteres inválidos", () => {
+    cy.get("#phone").type("abcdefgh");
+    cy.get("#phone").should("have.text", "");
+  });
 });
