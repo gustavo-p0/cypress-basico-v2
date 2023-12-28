@@ -43,7 +43,7 @@ describe("Central de atendimento ao Cliente TAT", () => {
   it("exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário", () => {
     cy.get("#firstName").type("Dutch");
     cy.get("#lastName").type("Salamandra");
-    cy.get("#email").type("email@mail");
+    cy.get("#email").type("email@email.com");
     cy.get("#open-text-area").type(
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis et aliquid vero pariatur odit quas! Cum, sit vero odit maiores corporis veniam necessitatibus temporibus ab quis incidunt assumenda laboriosam dolorem?",
       { delay: 0 }
@@ -79,5 +79,49 @@ describe("Central de atendimento ao Cliente TAT", () => {
 
   it("envia o formulário com sucesso usando um comando customizado", () => {
     cy.fillMandatoryFieldsAndSubmit();
+  });
+
+  //exercicio 03-1
+  it("seleciona um produto (YouTube) por seu texto", () => {
+    cy.get("#product").select("YouTube");
+    cy.get("#product").should("have.value", "youtube");
+  });
+
+  //exercicio 03-2
+  it("seleciona um produto (Mentoria) por seu valor (value)", () => {
+    cy.get("#product").select("mentoria");
+    cy.get("#product").should("have.value", "mentoria");
+  });
+
+  //exercicio 03-3
+  it("seleciona um produto (Blog) por seu índice", () => {
+    cy.get("#product").select(1);
+    cy.get("#product").should("have.value", "blog");
+  });
+
+  //   Exercício  04-1
+
+  // Crie um teste chamado marca o tipo de atendimento "Feedback"
+  // Faça a verificação que o valor correto foi selecionado após o .check()
+  // Por fim, execute o novo teste no Test Runner
+
+  it(`marca o tipo de atendimento "Feedback"`, () => {
+    cy.get(`input[type="radio"][value="feedback"]`).check();
+    cy.get(`input[type="radio"][value="feedback"]`).should("be.checked");
+  });
+
+  //   Exercício extra 04-2
+
+  // Crie um teste chamado marca cada tipo de atendimento
+  // Faça a verificação de que após o .check(), cada radio foi marcado (.should('be.checked'))
+  // Por fim, execute o novo teste no Test Runner
+
+  it.only("marca cada tipo de atendimento", () => {
+    cy.get(`input[type="radio"][value="elogio"]`).check();
+    cy.get(`input[type="radio"][value="elogio"]`).should("be.checked");
+    cy.get(`input[type="radio"][value="feedback"]`).check();
+    cy.get(`input[type="radio"][value="feedback"]`).should("be.checked");
+    cy.get(`input[type="radio"][value="ajuda"]`).check();
+    cy.get(`input[type="radio"][value="ajuda"]`).should("be.checked");
   });
 });
